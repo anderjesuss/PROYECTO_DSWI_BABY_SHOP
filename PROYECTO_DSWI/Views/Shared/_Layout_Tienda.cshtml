@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<style>
+    .cerrarSesion {
+        margin-left: 980px;
+        display: flex;
+    }
+
+   .imagen {
+        margin-top: 5px;
+        width: 32px;
+        height: 32px;
+    }
+</style>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark pt-3 pb-3">
+        <div class="container">
+            @Html.ActionLink("BabyShop", "Index", "Tienda", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar navegación" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="cerrarSesion">@Html.ActionLink("Cerrar Sesión", "CerrarSesion", "Acceso", new { area = "" }, new { @class = "nav-link" }) <img class="imagen" src="~/Imagenes/Logos/cerrar-sesion.png" /></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <div class="bg-white">
+            <footer class=" text-dark pb-4 pt-10  ">
+                <div class="container text-center text-md-start">
+                    <div class="row text-center text-md-start">
+                        <div class="col-lg-3 mx-auto mt-3">
+                            <h5 class="text-uppercase mb-4 font-weight-bold">Nosotros</h5>
+                            <hr class="mb-4" />
+                            <p>
+                                Baby Shop es una empresa dedicada a la comercialización de ropa
+                                para bebés y niños, cuenta con una gran variedad de productos de las marcas más prestigiosas.
+                                Nuestro posicionamiento en el rubro nos permite brindar a nuestros clientes
+                                los mejores precios del mercado, vendemos por mayor y menor. Baby Shop brinda
+                                a sus clientes un canal de venta online, en donde se puede efectuar compras las 24 horas
+                                del día de forma 100% segura.
+                            </p>
+                        </div>
+
+                        <div class="col-lg-2 mx-auto mt-3 ">
+                            <h5 class="text-uppercase mb-4 font-weight-bold">Acerca de Baby Shop</h5>
+                            <hr class="mb-4" />
+                            <p>
+                                <a href="https://www.adidas.pe/help-topics-privacy_policy.html" class="text-dark">Politica de privacidad</a>
+                            </p>
+                            <p>
+                                <a href="https://www.adidas.pe/help-topics-imprint.html" class="text-dark">Sobre Baby Shop </a>
+                            </p>
+                        </div>
+
+                        <div class="col-lg-2 mx-auto mt-3 ">
+                            <h5 class="text-uppercase mb-4 font-weight-bold">Contacto</h5>
+                            <hr class="mb-4" />
+                            <p>
+                                <li class="fas fa-home me-3"></li>Peru, Lima Surco 3080
+                            </p>
+                            <p>
+                                <li class="fas fa-envelope me-3"></li>baby.shop1@gmail.com
+                            </p>
+                            <p>
+                                <li class="fas fa-phone me-3"></li>+51 996 778 234
+                            </p>
+                        </div>
+                        <hr class="mb-4" />
+                        <div class="text-center mb-2">
+                            <p>
+                                © 2023 Todos los derechos reservados
+                            </p>
+                        </div>
+                        <div class="text-center">
+                            <ul class="list-unystyled list-inline">
+                                <li class="list-inline-item">
+                                    <a href="https://es-la.facebook.com/" class="text-dark"><i class="fab fa-facebook"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="https://twitter.com/?lang=es" class="text-dark"><i class="fab fa-twitter"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="https://myaccount.google.com/profile" class="text-dark"><i class="fab fa-google-plus"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="https://pe.linkedin.com/" class="text-dark"><i class="fab fa-linkedin-in"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="https://www.youtube.com/?hl=ES" class="text-dark"><i class="fab fa-youtube"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "Carrito";
+    Layout = "~/Views/Shared/_Layout_Tienda.cshtml";
+}
+
+
+<h2 class="text-center" style="color: black">:::::   PEDIDOS EN LISTA   :::::</h2>
+
+<br />
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered table-striped black-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripcion</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Talla</th>
+                <th>Total</th>
+                <th>Producto</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ double total = 0;}
+            @if (Session["carrito"] != null)
+            {
+                foreach (var item in Session["carrito"] as List<PROYECTO_DSWI.Models.CarritoItem>)
+                {
+                    total += (double)(item.Cantidad * item.Producto.Precio);
+                    <tr>
+                        <td>@item.Producto.IdProducto</td>
+                        <td>@item.Producto.Nombre</td>
+                        <td>@String.Format("{0:C}", item.Producto.Precio)</td>
+                        <td>@item.Cantidad</td>
+                        <td>@item.Talla</td>
+                        <td>@String.Format("{0:C}", item.Producto.Precio * item.Cantidad)</td>
+                        <td><img src="@Url.Content(item.Producto.RutaImagen)" style="width:100px; height:100px" /></td>
+                        <td>@Html.ActionLink("Eliminar", "Delete", "Carrito", new { ID = item.Producto.IdProducto }, null)</td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tr>
+        </tr>
+        <tfoot>
+            <tr></tr>
+            <tr>
+                <th colspan="10">TOTAL A PAGAR:</th>
+                <th>@String.Format("{0:C}", total)</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<br />
+<hr />
+<table>
+    <tr>
+        <td>
+            @Html.ActionLink("Continuar Comprando", "Index", "Tienda", null, new { @class = "agregar" })
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.ActionLink("Procesar Compra", "FinalizarCompra", "Carrito", null, new { @class = "agregar" })
+        </td>
+    </tr>
+</table>
+
+<style>
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #EFCA92;
+    }
+
+    .table-bordered {
+        border: 5px solid #808080;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #ffffff;
+    }
+
+    th,
+    td {
+        padding: 0.75rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        text-align: center;
+    }
+
+
+    .agregar {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #F8D492;
+        color: black;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    th {
+        vertical-align: bottom;
+        border-bottom: 1px solid black;
+    }
+
+    .text-center {
+        text-align: center;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    img {
+        max-width: 100px;
+        max-height: 100px;
+    }
+
+    .black-table {
+        background-color: #FBE2B4;
+    }
+
+        .black-table th,
+        .black-table td {
+            color: black;
+        }
+</style>
+

@@ -1,0 +1,159 @@
+﻿@model IEnumerable<PROYECTO_DSWI.Models.MARCA>
+
+@{
+    ViewBag.Title = "IndexMarca";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="contenedor-navegador">
+    <img src="~/Imagenes/Logos/listaMarca.png" />
+    <h3 class="mt-4 titulo">LISTA DE MARCAS</h3>
+</div>
+
+<hr style="border: solid 1px black" />
+<div class="contenedor-sec">
+    <img src="~/Imagenes/Logos/agregarMarca.png" />@Html.ActionLink("Agregar Marca", "CreateMarca", null, new { @class = "btn btn-primary boton" })
+
+</div>
+
+<br />
+<br />
+<style>
+    .tablon {
+        width: 100%;
+    }
+
+    .contenedor-sec {
+        margin-top: 30px;
+    }
+
+    .boton {
+        margin-left: 10px;
+        background-color: #04b68a;
+        border: white;
+        font-family: 'Berlin Sans FB';
+    }
+
+        .boton:hover {
+            background-color: black;
+            border: white;
+            font-family: 'Berlin Sans FB';
+        }
+
+    .btnEditar {
+        background-color: #344c8b;
+        font-family: 'Berlin Sans FB';
+        color: white;
+        border: black 3px;
+    }
+
+        .btnEditar:hover {
+            background-color: #2c8eed;
+            font-family: 'Berlin Sans FB';
+            color: white;
+            border: white;
+        }
+
+    .btnEliminar {
+        color: white;
+        background-color: #b23430;
+        border: white;
+        font-family: 'Berlin Sans FB';
+    }
+
+        .btnEliminar:hover {
+            background-color: red;
+            border: white;
+            font-family: 'Berlin Sans FB';
+        }
+
+    .contenedor-navegador img {
+        width: 40px;
+        height: 40px;
+        margin-top: 30px;
+        margin-right: 10px;
+    }
+
+    .contenedor-navegador {
+        display: flex;
+    }
+
+    .titulo {
+        padding-top: 5px;
+        padding-bottom: 10px;
+        color: black;
+        font-size: 30px;
+        text-align: left;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    th, tr, td, tbody, .teibol {
+        border: black 2px;
+    }
+
+    .encabezado {
+        background-color: cadetblue;
+        text-align: center;
+        color: white;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    .detalle {
+        font-family: 'Lucida Calligraphy';
+    }
+
+    .detalle {
+        text-align: center;
+    }
+
+    table {
+        border-collapse: separate;
+        border-spacing: 10;
+        border: solid black 1px;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 5px;
+    }
+</style>
+
+<div class="tablon">
+    <table class="table table-striped table-bordered teibol" style="width: 100%;" id="tableMarca">
+        <thead class="encabezado">
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="detalle">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.IdMarca)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                    <td class="text-center" style="width: 20%">
+                        @Html.ActionLink(" ", "EditMarca", new { codigo = item.IdMarca }, new { @class = "btn btn-primary btnEditar bi bi-pencil-square" }) |
+                        @Html.ActionLink(" ", "DeleteMarca", new { id = item.IdMarca }, new { @class = "btn btn-primary btnEliminar bi-trash3-fill" })
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css" />
+    <script>
+        $(document).ready(function () {
+            $('#tableMarca').DataTable({
+                "paging": true,
+                "pageLength": 10,
+                "lengthChange": false,
+                "searching": false,
+                "info": false,
+            });
+        });
+    </script>
+}

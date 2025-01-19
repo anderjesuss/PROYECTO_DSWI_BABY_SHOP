@@ -1,0 +1,132 @@
+﻿@model PROYECTO_DSWI.Models.PRODUCTO
+
+@{
+    ViewBag.Title = "EditProducto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" integrity="sha512-ZnR2wlLbSbr8/c9AgLg3jQPAattCUImNsae6NHYnS9KrIwRdcY9DxFotXhNAKIKbAXlRnujIqUWoXXwqyFOeIQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    .titulo {
+        font-family: Arial;
+        font-size: 200%;
+        text-align: center;
+        background: lightgoldenrodyellow;
+    }
+
+    .subtitulo {
+        font-family: 'Comic Sans MS';
+        font-size: 150%;
+    }
+
+    .boton {
+        border-radius: 15px;
+        padding: 12px 35px;
+        font-size: 16px;
+    }
+
+        .boton:hover {
+            background-color: #010B12;
+            color: #DEE7ED;
+            border-radius: 15px;
+        }
+
+    .form-group {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-group::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+    .botones {
+        word-spacing: 20px;
+        text-align: center;
+        margin-top: 20px;
+        display: inline-block;
+        padding: 12px 24px;
+        font-size: 18px;
+    }
+
+    .ingresar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 9%;
+    }
+</style>
+<h2 class="titulo">Editar Producto</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdProducto, htmlAttributes: new { @class = "control-label col-md-2 subtitulo" })
+            <div class="col-md-10 ingresar">
+                @Html.EditorFor(model => model.IdProducto, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IdProducto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2 subtitulo" })
+            <div class="col-md-10 ingresar">
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MARCA.IdMarca, htmlAttributes: new { @class = "control-label col-md-2 subtitulo" })
+            <div class="col-md-10 ingresar">
+                @Html.EditorFor(model => model.MARCA.IdMarca, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MARCA.IdMarca, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CATEGORIA.IdCategoria, htmlAttributes: new { @class = "control-label col-md-2 subtitulo" })
+            <div class="col-md-10 ingresar">
+                @Html.EditorFor(model => model.CATEGORIA.IdCategoria, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CATEGORIA.IdCategoria, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "control-label col-md-2 subtitulo" })
+            <div class="col-md-10 ingresar">
+                @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Stock, htmlAttributes: new { @class = "control-label col-md-2 subtitulo" })
+            <div class="col-md-10 ingresar">
+                @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 botones">
+                <input type="submit" value="Save" class="btn btn-success boton" />
+                @Html.ActionLink("Retornar", "IndexProducto", null, new { @class = "btn btn-secondary boton bi bi-chevron-double-left" })
+            </div>
+        </div>
+    </div>
+}
+<br />
+<div>
+    @ViewBag.mensaje
+</div>

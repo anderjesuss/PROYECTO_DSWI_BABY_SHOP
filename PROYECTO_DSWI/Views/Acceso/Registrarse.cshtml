@@ -1,0 +1,131 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="~/Content/StyleRegistrar.css" rel="stylesheet" />
+    <title>Login</title>
+</head>
+<style>
+    body {
+        background-image: url("https://i.ibb.co/MDYndYZ/fondo-Registrar.jpg");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        
+    }
+</style>
+<body>
+    
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="~/Content/StyleRegistrar.css" rel="stylesheet" />
+    <title>Login</title>
+</head>
+<style>
+    body {
+        background-image: url("https://i.ibb.co/MDYndYZ/fondo-Registrar.jpg");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        
+    }
+</style>
+<body>
+    <div class="contenedorPadre">
+        <div class="login-container">
+            <h2 class="r">Registrarse</h2>
+            <form action="@Url.Action("Registrarse","Acceso")" method="post">
+                <div class="form-group-cajas">
+                    <label for="username">Nombres:</label>
+                    <input type="text" id="username" name="NNombres">
+                </div>
+                <div class="form-group-cajas">
+                    <label for="username">Apellidos:</label>
+                    <input type="text" id="lastname" name="NApellidos">
+                </div>
+                <div class="form-group-cajas">
+                    <label for="username">Correo:</label>
+                    <input type="text" id="correo" name="NCorreo">
+                </div>
+                <div class="form-group-cajas">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" name="NClave">
+                </div>
+                <div class="form-group-cajas">
+                    <label for="password">Confirmar Contraseña:</label>
+                    <input type="password" id="confirmarPassword" name="NConfirmarClave">
+                </div>
+                <div class="form-floating mb-3">
+                    @{if (ViewBag.Error != null)
+                        {
+                            <div class="alert alert-danger" role="alert" style="text-align: center">
+                                @ViewBag.Error
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="form-group">
+                    <button type="submit">Registrarse</button>
+                </div>
+                <br />
+                <div class="registrarLink">
+                    <label>¿Ya tienes cuenta?</label>
+                    <a href="@Url.Action("Index","Acceso")" class="registrate">Ingresa aquí</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var form = document.querySelector('form');
+        var formFloatingDiv = document.querySelector('.form-floating.mb-3');
+
+        form.addEventListener('submit', function (event) {
+            var nombres = document.getElementById('username').value;
+            var apellidos = document.getElementById('lastname').value;
+            var correo = document.getElementById('correo').value;
+            var contraseña = document.getElementById('password').value;
+            var confirmarContraseña = document.getElementById('confirmarPassword').value;
+
+            if (nombres.trim() === '' || apellidos.trim() === '' || correo.trim() === '' || contraseña.trim() === '' || confirmarContraseña.trim() === '') {
+                event.preventDefault();
+
+                var errorDiv = document.createElement('div');
+                errorDiv.className = 'alert alert-danger';
+                errorDiv.role = 'alert';
+                errorDiv.style.textAlign = 'center';
+                errorDiv.textContent = 'Por favor, complete todos los campos.';
+
+                formFloatingDiv.parentNode.insertBefore(errorDiv, formFloatingDiv.nextSibling);
+
+                setTimeout(function () {
+                    errorDiv.remove();
+                }, 3000);
+
+                errorDiv.scrollIntoView();
+            }
+        });
+    </script>
+</body>
+</html>

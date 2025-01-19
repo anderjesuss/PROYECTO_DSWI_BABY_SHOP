@@ -1,0 +1,180 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .arribita {
+        color: black;
+        text-shadow: gray 0.1em 0.1em 0.2em;
+        margin-top: 2%;
+        margin-bottom: 2%;
+        font-size: 180%;
+        text-align: center;
+        font-family: 'Californian FB';
+    }
+
+    .abajito {
+        color: black;
+        text-shadow: gray 0.1em 0.1em 0.2em;
+        margin-top: 2%;
+        margin-bottom: 2%;
+        font-size: 180%;
+        text-align: center;
+        font-family: 'Californian FB';
+    }
+    .cajitabaja{
+        margin-bottom:5%;
+    }
+    .fondito1 {
+        background-color: whitesmoke;
+        margin-bottom: 5%;
+        border-radius: 10px;
+    }
+    .fondito2 {
+        background-color: whitesmoke;
+        border-radius: 10px;
+    }
+    .primerDiv {
+        border: solid;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+    .segundoDiv {
+        border: solid;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+    }
+    .panel-default {
+        margin-bottom: 1px;
+    }
+    #myPieChart {
+        padding-block: 10px;
+    }
+
+</style>
+ 
+<div class="row " >
+    <div class="col-log-6 primerDiv">
+        <div class="panel panel-default">
+            <div class="panel-heading arribita"><b>Reporte De Ventas en los 3 Últimos meses</b> </div>
+            
+            <div class="panel-body fondito1">
+                <canvas id="myBarChart" width="100" height="50"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-log-6 segundoDiv">
+        <div class="panel panel-default">
+            <div class="panel-heading abajito"><b>4 Productos más Vendidos en los 3 Últimos meses</b> </div>
+            <div class="panel-body cajitabaja fondito2">
+                <canvas id="myPieChart" width="100" height="50"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+
+        jQuery.ajax({
+            url: '@Url.Action("ReporteVentas", "Reporte")',
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json; charset-utf-8",
+            success: function (data) {
+                console.log(data)
+
+                var arrayMeses = [];
+                var arrayCantidad = [];
+
+                for (var i = 0; i < data.length; i++) {
+                    arrayMeses.push(data[i].mes)
+                    arrayCantidad.push(data[i].cantidad)
+                }
+
+                var controlarBar = document.getElementById("myBarChart");
+
+                var graficoBar = new Chart(controlarBar, {
+                    type: 'bar',
+                    data: {
+                        labels: arrayMeses,
+                        datasets: [
+                            {
+                                label: "reporte",
+                                backgroundColor: "#BB2100",
+                                data: arrayCantidad,
+                            }
+                        ]
+
+                    },
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                gridLines: {
+                                    display: false
+                                }
+                            }],
+                            yAxes: [{
+                                gridLines: {
+                                    display: true
+                                }
+                            }]
+                        }
+                    }
+                })
+
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        });
+
+
+        jQuery.ajax({
+            url: '@Url.Action("ReporteProductos", "Reporte")',
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json; charset-utf-8",
+            success: function (data) {
+                console.log(data)
+
+                var arrayProducto = [];
+                var arrayCantidad = [];
+
+                for (var i = 0; i < data.length; i++) {
+                    arrayProducto.push(data[i].producto)
+                    arrayCantidad.push(data[i].cantidad)
+                }
+
+                var controlarPie = document.getElementById("myPieChart");
+
+                var graficoPie = new Chart(controlarPie, {
+                    type: 'pie',
+                    data: {
+                        labels: arrayProducto,
+                        datasets: [
+                            {
+                                data: arrayCantidad,
+                                backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
+                            }
+                        ]
+                    }
+                });
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        });
+
+
+    </script>  
+    
+  
+    }

@@ -1,0 +1,95 @@
+﻿@model IEnumerable<PROYECTO_DSWI.Models.ProductoLista>
+
+@{
+    ViewBag.Title = "IndexProducto";
+}
+<style>
+    table {
+        text-align: center;
+    }
+
+    .detalle {
+        font-family: 'Lucida Calligraphy';
+    }
+
+    .detalle {
+        text-align: center;
+    }
+
+    th, tr, td, tbody, .teibol {
+        border: black 2px;
+    }
+
+    .tablon {
+        width: 100%;
+    }
+
+    .encabezado {
+        background-color: cadetblue;
+        text-align: center;
+        color: white;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    table {
+        border-collapse: separate;
+        border-spacing: 10;
+        border: solid black 1px;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 5px;
+    }
+</style>
+
+<div class="tablon">
+    <table class="table table-striped table-bordered teibol" id="consultasTable">
+        <thead class="encabezado">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Codigo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Producto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Marca)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Categoria)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Precio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Stock)
+                </th>
+            </tr>
+        </thead>
+
+        <tbody class="detalle">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Codigo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Marca)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Categoria)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Stock)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

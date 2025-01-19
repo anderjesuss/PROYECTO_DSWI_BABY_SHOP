@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" integrity="sha512-ZnR2wlLbSbr8/c9AgLg3jQPAattCUImNsae6NHYnS9KrIwRdcY9DxFotXhNAKIKbAXlRnujIqUWoXXwqyFOeIQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<style>
+    .cerrarSesion {
+        margin-left:30%;
+    }
+    .imagen2{
+        margin-top:5px;
+        width:32px;
+        height:32px;
+    }
+    .collapse {
+        display: flex;
+        justify-content: flex-end;
+    }
+    body {
+        background-image: url("https://i.ibb.co/NZTx63d/hola.jpg");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+    tbody{
+        background-color: ghostwhite;
+        opacity: 0.8;
+        
+    }
+
+
+</style>
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark pt-3 pb-3">
+        <div class="container">
+            @Html.ActionLink("BabyShop", "IndexProducto", "Administrar", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar navegación" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li>@Html.ActionLink("Productos", "IndexProducto", "Administrar", new { area = "" }, new { @class = "nav-link bi bi-bag" })</li>
+                    <li>@Html.ActionLink("Categorias", "Index", "Administrar", new { area = "" }, new { @class = "nav-link bi bi-list-check" })</li>
+                    <li>@Html.ActionLink("Marcas", "IndexMarca", "Administrar", new { area = "" }, new { @class = "nav-link bi bi-bookmark-star" })</li>
+                    <li>@Html.ActionLink("Consulta Usuarios", "UsuarioPorNombre", "Consultas", new { area = "" }, new { @class = "nav-link bi bi-people-fill" })</li>
+                    <li>@Html.ActionLink("Consulta Productos", "ProductoPorCategoria", "Consultas", new { area = "" }, new { @class = "nav-link bi bi-bag-plus-fill" })</li>
+                    <li>@Html.ActionLink("Reporte", "Index", "Reporte", new { area = "" }, new { @class = "nav-link bi bi-newspaper" })</li>
+                    <li class="cerrarSesion">@Html.ActionLink("Cerrar Sesión", "CerrarSesion", "Acceso", new { area = "" }, new { @class = "nav-link bi bi-box-arrow-left " }) @*<img class="imagen2" src="~/Imagenes/Logos/cerrar-sesion.png" />*@</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <br />
+        <footer class=" text-dark pb-4 pt-10  ">
+            <hr class="mb-4" />
+            <div class="text-center">
+                <ul class="list-unystyled list-inline">
+                    <li class="list-inline-item">
+                        <a href="https://es-la.facebook.com/" class="text-dark"><i class="bi bi-facebook"></i></a>
+
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=es" class="text-dark"><i class="bi bi-twitter"></i></a>
+
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://myaccount.google.com/profile" class="text-dark"><i class="bi bi-google"></i></a>
+
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://pe.linkedin.com/" class="text-dark"><i class="bi bi-linkedin"></i></a>
+
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://www.youtube.com/?hl=ES" class="text-dark"><i class="bi bi-youtube"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="text-center mb-2">
+                <p>
+                    © 2023 Todos los derechos reservados
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

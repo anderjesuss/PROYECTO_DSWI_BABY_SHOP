@@ -1,0 +1,172 @@
+﻿@model IEnumerable<PROYECTO_DSWI.Models.PRODUCTO>
+@{
+    ViewBag.Title = "Baby Shop";
+    Layout = "~/Views/Shared/_Layout_Tienda.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/styleTienda.css" />
+<script src="https://kit.fontawesome.com/887a835504.js" crossorigin="anonymous"></script>
+<style>
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+        .pagination a {
+            margin: 0 5px;
+            padding: 5px 10px;
+            text-decoration: none;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+            .pagination a.active {
+                background-color: #333;
+                color: #fff;
+            }
+</style>
+<body>
+    <div class="carrousel">
+        <div class="conteCarrousel">
+            <div class="itemCarrousel" id="itemCarrousel-1">
+                <div class="itemCarrouselTarjeta"></div>
+                <div class="itemCarrouselArrows">
+                    <a href="#itemCarrousel-3">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                    <a href="#itemCarrousel-2">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="itemCarrousel" id="itemCarrousel-2">
+                <div class="itemCarrouselTarjeta"></div>
+                <div class="itemCarrouselArrows">
+                    <a href="#itemCarrousel-1">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                    <a href="#itemCarrousel-3">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="itemCarrousel" id="itemCarrousel-3">
+                <div class="itemCarrouselTarjeta"></div>
+                <div class="itemCarrouselArrows">
+                    <a href="#itemCarrousel-2">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                    <a href="#itemCarrousel-1">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="conteCarrouselController">
+            <a href="#itemCarrousel-1">•</a>
+            <a href="#itemCarrousel-2">•</a>
+            <a href="#itemCarrousel-3">•</a>
+        </div>
+    </div>
+    <br />
+    <div class="contenedor-columnas">
+        @foreach (var item in Model)
+        {
+            <div class="caja">
+                <div class="caja2">
+                    <div class="img">
+                        <img src="@Url.Content(item.RutaImagen)" alt="" width="180px" height="180px">
+                    </div>
+                    <div class="item">
+                        <hr />
+                        <h5 id="idCodigo" class="codigoProducto">@item.IdProducto</h5>
+                        <label>@item.Nombre</label>
+                        <br>
+                        <label>@String.Format("{0:C}", item.Precio)</label><br />
+                        @Html.DropDownList("idTalla", ViewBag.tallas as SelectList, new { @class = "form-control lista" })<br />
+                        <label><input type="number" class="form-control input-agregar validarNumero" id="idCantidad" min="0" placeholder="Seleccionar cantidad" /></label>
+                        <hr />
+                        <button type="button" class="btn btn-primary agregar">Agregar al Carrito</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="pagination">
+        @for (var i = 1; i <= Model.Count(); i++)
+        {
+            <a href="#page-@i" class="page-link">@i</a>
+        }
+    </div>
+</body>
+@section Scripts {
+    <script>
+        let codTalla;
+        $(function () {
+            $(".agregar").on("click", function (event) {
+                event.preventDefault();
+                var Talla = codTalla;
+                var ProductoID = $(this).parent().parent().find("h5").text();
+                var cantidad = $(this).parent().parent().find("input").val();
+
+                $.ajax ({
+                    url: "@Url.Action("AgregarCarrito","Carrito")",
+                    data: { id: ProductoID, cantidad: cantidad, talla: Talla},
+                    type: "post",
+                    success: function (response) {
+                        window.location.href = "@Url.Action("AgregarCarrito","Carrito")";
+                    },
+                    error: function (err, error) {
+                        alert(error);
+                        console.log(ProductoID)
+                        console.log(cantidad)
+                        console.log(Talla)
+                    }
+                })
+            })
+        })
+
+        $(document).on("change", ".lista", function () {
+            codTalla = $(this).val();
+            console.log(codTalla)
+        })
+
+        // Obtener todos los elementos h5 con la clase "codigoProducto"
+        var h5Elements = document.getElementsByClassName('codigoProducto');
+
+        // Ocultar los elementos
+        for (var i = 0; i < h5Elements.length; i++) {
+            h5Elements[i].style.display = 'none';
+        }
+    </script>
+
+    <script>
+        // Ocultar todos los elementos de la lista
+        $(".caja").hide();
+
+        // Mostrar la página inicial
+        $(".caja:lt(4)").show();
+
+        // Manejar el clic en los enlaces de paginación
+        $(".pagination a").click(function (e) {
+            e.preventDefault();
+
+            var page = $(this).text();
+            var startIndex = (page - 1) * 4;
+            var endIndex = startIndex + 4;
+
+            // Ocultar todos los elementos de la lista
+            $(".caja").hide();
+
+            // Mostrar los elementos de la página seleccionada
+            $(".caja").slice(startIndex, endIndex).show();
+
+            // Agregar clase "active" al enlace seleccionado
+            $(".pagination a").removeClass("active");
+            $(this).addClass("active");
+        });
+    </script>
+
+}

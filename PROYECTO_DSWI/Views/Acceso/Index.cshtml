@@ -1,0 +1,99 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="~/Content/styleLogin.css" rel="stylesheet" />
+    <title>Login</title>
+
+</head>
+
+
+<body>
+    <img class="wave" src="~/Imagenes/Login/wave.png">
+    <div class="container">
+        <div class="img">
+            <img src="~/Imagenes/Login/bb2.png">
+        </div>
+        <div class="login-content">
+            <form action="@Url.Content("~/Acceso/Index")" method="post">
+                @Html.AntiForgeryToken()
+                <img src="~/Imagenes/Login/avatar.svg">
+                <h2 class="title">Welcome</h2>
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="div">
+                        <h5 for="username">CORREO</h5>
+                        <input type="text" id="username" name="NCorreo" placeholder="Correo">
+                    </div>
+                </div>
+                <div class="input-div pass">
+                    <div class="i">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="div">
+                        <h5 for="password"></h5>
+                        <input type="password" id="password" name="NClave" placeholder="Contraseña" >
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    @{if (ViewBag.Error != null)
+                        {
+                            <div class="alert alert-danger" role="alert" style="text-align: center">
+                                @ViewBag.Error
+                            </div>
+                        }
+                    }
+                </div>
+
+                <input type="submit" class="btn" value="Login">
+                <div class="registrarLink">
+                    <label>¿No tienes cuenta?</label>
+                    <a href="@Url.Action("Registrarse","Acceso")" class="registrate">Registrate Aquí</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text" src="~/Content/main.js"></script>
+
+    <script>
+        var form = document.querySelector('form');
+
+        var formFloatingDiv = document.querySelector('.form-floating.mb-3');
+
+        form.addEventListener('submit', function (event) {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (username.trim() === '' || password.trim() === '') {
+                event.preventDefault();
+
+                var errorDiv = document.createElement('div');
+                errorDiv.className = 'alert alert-danger';
+                errorDiv.role = 'alert';
+                errorDiv.style.textAlign = 'center';
+                errorDiv.textContent = 'Por favor, ingresa el username y el password.';
+
+                formFloatingDiv.parentNode.insertBefore(errorDiv, formFloatingDiv.nextSibling);
+
+                setTimeout(function () {
+                    errorDiv.remove();
+                }, 4000);
+
+                errorDiv.scrollIntoView();
+            }
+        });
+    </script>
+</body>
+</html>
